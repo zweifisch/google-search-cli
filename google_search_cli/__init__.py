@@ -34,7 +34,8 @@ def search(keywords, offset, limit):
     url = 'http://ajax.googleapis.com/ajax/services/search/web'
     response = json.loads(get(url, params))
     if response['responseStatus'] != 200:
-        print(response['responseDetails'])
+        print(error.format(response['responseDetails']))
+        sys.exit(1)
     else:
         print_result(response['responseData']['results'])
         print_pager(response['responseData']['cursor']['resultCount'],
