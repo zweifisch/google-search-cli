@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='google-search-cli',
-    version='0.0.3',
+    version='0.0.4',
     url='https://github.com/zweifisch/google-search-cli',
     license='MIT',
     description='google search cli',

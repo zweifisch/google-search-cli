@@ -8,8 +8,9 @@ try:
     from urllib.request import Request, urlopen
     from urllib.parse import urlencode
     from html.parser import HTMLParser
+    from urllib.error import URLError
 except:
-    from urllib2 import Request, urlopen
+    from urllib2 import Request, urlopen, URLError
     from urllib import urlencode
     from HTMLParser import HTMLParser
 
@@ -22,7 +23,10 @@ def get(url, params=None):
         url += '?' + urlencode(params)
     request = Request(url)
     request.add_header('Cache-Control', 'no-cache')
-    response = urlopen(request)
+    try:
+        response = urlopen(request)
+    except URLError:
+        sys.exit(1)
     result = response.read()
     if type(result) is not str:
         return result.decode()
