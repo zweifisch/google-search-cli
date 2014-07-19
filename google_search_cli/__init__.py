@@ -42,8 +42,11 @@ def search(keywords, offset, limit):
         sys.exit(1)
     else:
         print_result(response['responseData']['results'])
-        print_pager(response['responseData']['cursor']['resultCount'],
-                    offset, limit)
+        if 'resultCount' in response['responseData']['cursor']:
+            print_pager(response['responseData']['cursor']['resultCount'],
+                        offset, limit)
+        else:
+            print_not_found()
 
 
 class Format:
@@ -100,6 +103,10 @@ def print_result(results):
 def print_pager(total, offset, limit):
     print(pager.format("\nShowing %d to %d of %s Press RET for more\n" %
                        (offset + 1, offset + limit, total)))
+
+
+def print_not_found():
+    print(pager.format("\nNothing Found\n"))
 
 
 def get_proxy_setting():
